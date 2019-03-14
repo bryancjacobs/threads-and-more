@@ -134,10 +134,18 @@ public class SubmitWithCallable {
         var callables = new ArrayList<Callable<String>>();
 
         callables.add(() -> "quick");
-        callables.add(() -> "more quick");
-        callables.add(() -> "even quicker");
+
+        callables.add(() -> {
+
+            Thread.sleep(5000);
+
+            return "ready for dinner";
+        });
+
         callables.add(() -> "yes i am");
 
+
+        callables.add(() -> "more quick");
         callables.add(() -> {
 
             Thread.sleep(150);
@@ -152,12 +160,8 @@ public class SubmitWithCallable {
             return "ready for playtime";
         });
 
-        callables.add(() -> {
+        callables.add(() -> "even quicker");
 
-            Thread.sleep(5000);
-
-            return "ready for dinner";
-        });
 
         return callables;
     }
