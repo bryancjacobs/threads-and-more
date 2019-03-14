@@ -138,15 +138,6 @@ public class SubmitWithCallable {
         callables.add(() -> "even quicker");
         callables.add(() -> "yes i am");
 
-
-        callables.add(() -> {
-
-            Thread.sleep(5000);
-
-            return "ready for dinner";
-        });
-
-
         callables.add(() -> {
 
             Thread.sleep(150);
@@ -159,6 +150,13 @@ public class SubmitWithCallable {
             Thread.sleep(3000);
 
             return "ready for playtime";
+        });
+
+        callables.add(() -> {
+
+            Thread.sleep(5000);
+
+            return "ready for dinner";
         });
 
         return callables;
