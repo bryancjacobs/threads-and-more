@@ -24,7 +24,7 @@ public class CompletableFutureExample {
             try {
                 System.out.println(CompletableFuture.supplyAsync(supplier).get());
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
     }
