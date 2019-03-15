@@ -4,37 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 public class CompletableFutureExample {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         new CompletableFutureExample().run();
     }
 
-    public void run() {
+    public void run() throws ExecutionException, InterruptedException {
+
+        int cores = Runtime.getRuntime().availableProcessors();
 
         var suppliers = suppliers();
 
-        System.out.println(suppliers.size());
+        System.out.println("\nNumber of tasks: " + suppliers.size() + "\n");
 
-        /**
-         * The parallelStream() allows iteration to occur over many threads
-         * Normal iteration would simply return the suppliers in the order they are passed
-         * into supplyAsync
-         *
-         * This is easy to test by simply removing the parallelStream() in favor of stream()
-         *
-         */
-        suppliers.parallelStream().forEach(supplier -> {
+        // this provides an alternative thread pool
+        ForkJoinPool pool = new ForkJoinPool(cores);
 
+        pool.submit(() -> suppliers.parallelStream().forEach(supplier -> {
             try {
                 System.out.println(CompletableFuture.supplyAsync(supplier).get());
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
             }
-        });
+        })).get();
     }
 
     private List<Supplier<String>> suppliers() {
