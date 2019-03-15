@@ -16,13 +16,15 @@ public class CompletableFutureExample {
 
     public void run() throws ExecutionException, InterruptedException {
 
+
+
         int cores = Runtime.getRuntime().availableProcessors();
+
+        ForkJoinPool pool = new ForkJoinPool(cores);
 
         var suppliers = suppliers();
 
         System.out.println("\nNumber of tasks: " + suppliers.size() + "\n");
-
-        ForkJoinPool pool = new ForkJoinPool(cores);
 
         pool.submit(() -> suppliers.parallelStream().forEach(supplier -> {
             try {
