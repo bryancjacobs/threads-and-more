@@ -7,10 +7,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
-public class CompleteableFutureExample {
+public class CompletableFutureExample {
 
-    public static void main(String[] args)  {
-        new CompleteableFutureExample().run();
+    public static void main(String[] args) {
+        new CompletableFutureExample().run();
     }
 
     public void run() {
@@ -32,6 +32,7 @@ public class CompleteableFutureExample {
             }
         });
 
+
     }
 
     private List<Supplier<String>> suppliers() {
@@ -39,7 +40,18 @@ public class CompleteableFutureExample {
 
         suppliers.add(() -> "Gotta eat fast 0");
 
+        suppliers.add(() -> {
 
+            int timeout = 1100;
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(timeout);
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e);
+            }
+
+            return "Yeah I could eat " + timeout;
+        });
         suppliers.add(() -> {
 
             int timeout = 100;
