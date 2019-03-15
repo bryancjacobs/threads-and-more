@@ -16,8 +16,6 @@ public class CompletableFutureExample {
 
     public void run() throws ExecutionException, InterruptedException {
 
-
-
         int cores = Runtime.getRuntime().availableProcessors();
 
         ForkJoinPool pool = new ForkJoinPool(cores);
