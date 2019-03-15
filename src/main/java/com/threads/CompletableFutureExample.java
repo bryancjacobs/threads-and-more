@@ -22,7 +22,6 @@ public class CompletableFutureExample {
 
         System.out.println("\nNumber of tasks: " + suppliers.size() + "\n");
 
-        // this provides an alternative thread pool
         ForkJoinPool pool = new ForkJoinPool(cores);
 
         pool.submit(() -> suppliers.parallelStream().forEach(supplier -> {
