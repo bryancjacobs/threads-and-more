@@ -19,6 +19,14 @@ public class CompletableFutureExample {
 
         System.out.println(suppliers.size());
 
+        /**
+         * The parallelStream() allows iteration to occur over many threads
+         * Normal iteration would simply return the suppliers in the order they are passed
+         * into supplyAsync
+         *
+         * This is easy to test by simply removing the parallelStream() in favor of stream()
+         *
+         */
         suppliers.parallelStream().forEach(supplier -> {
 
             try {
