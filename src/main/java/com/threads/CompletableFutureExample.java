@@ -21,21 +21,16 @@ public class CompletableFutureExample {
 
         suppliers.parallelStream().forEach(supplier -> {
 
-            CompletableFuture<String> future = CompletableFuture.supplyAsync(supplier);
-
             try {
-                System.out.println(future.get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+                System.out.println(CompletableFuture.supplyAsync(supplier).get());
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         });
-
-
     }
 
     private List<Supplier<String>> suppliers() {
+
         var suppliers = new ArrayList<Supplier<String>>();
 
         suppliers.add(() -> "Gotta eat fast 0");
@@ -52,6 +47,7 @@ public class CompletableFutureExample {
 
             return "Yeah I could eat " + timeout;
         });
+
         suppliers.add(() -> {
 
             int timeout = 100;
