@@ -1,5 +1,7 @@
 package com.threads.submit;
 
+import com.threads.factory.Factory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -23,7 +25,7 @@ public class SubmitWithCallable {
         var es = Executors.newFixedThreadPool(3);
 
         // callables are threads which can return a value...lets make some to process
-        var callables = callables();
+        var callables = Factory.callables();
 
         System.out.println("\n *** Total tasks: " + callables.size() + "\n");
 
@@ -121,48 +123,4 @@ public class SubmitWithCallable {
         es.shutdown();
     }
 
-    /**
-     * This method creates a bunch of callables to test the code.
-     *
-     * The Thread.sleep calls are used to demonstrate how quick callables return quickly, and longer
-     * tasks, once completed, will also return.
-     *
-     * @return
-     */
-    private List<Callable<String>> callables() {
-
-        var callables = new ArrayList<Callable<String>>();
-
-        callables.add(() -> "quick");
-
-        callables.add(() -> {
-
-            Thread.sleep(5000);
-
-            return "ready for dinner";
-        });
-
-        callables.add(() -> "yes i am");
-
-
-        callables.add(() -> "more quick");
-        callables.add(() -> {
-
-            Thread.sleep(150);
-
-            return "yummy";
-        });
-
-        callables.add(() -> {
-
-            Thread.sleep(3000);
-
-            return "ready for playtime";
-        });
-
-        callables.add(() -> "even quicker");
-
-
-        return callables;
-    }
 }

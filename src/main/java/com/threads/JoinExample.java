@@ -1,5 +1,10 @@
 package com.threads;
 
+/**
+ * Provides an example of how to create threads and have them return in the order they started
+ *
+ * ExecutorService.invokeAll is a better implementation
+ */
 public class JoinExample {
 
     public static void main(String[] args) throws Exception {
