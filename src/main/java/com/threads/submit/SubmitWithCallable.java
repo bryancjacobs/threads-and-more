@@ -115,8 +115,6 @@ public class SubmitWithCallable {
                 if (isEndOfListResetToBeginning) {
                     index = 0;
                 }
-
-
             }
         }
 
