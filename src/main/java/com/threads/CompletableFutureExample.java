@@ -6,6 +6,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 
+/**
+ * This code is optimized to return completed futures as soon as they complete.  The idea is that many different tasks
+ * will take a variable amount of time, but we want to be able to get the completed tasks results back without having
+ * to wait for longer running tasks.
+ */
 public class CompletableFutureExample {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
