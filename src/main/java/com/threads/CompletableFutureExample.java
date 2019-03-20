@@ -18,8 +18,8 @@ public class CompletableFutureExample {
 
 
         /**
-         * This ForkJoinPool is created so that the parallelStream call happens with the pool, rather than the default
-         * pool preventing slowness from not enough threads in the pool.
+         * This ForkJoinPool is created so that the parallelStream call happens with this pool, rather than the default
+         * pool.  This ensures that enough threads will be available to service the suppliers that will be submitted.
          */
         ForkJoinPool pool = new ForkJoinPool(cores);
 
@@ -46,7 +46,7 @@ public class CompletableFutureExample {
             }
         });
 
-        // this kicks off all the fun
+        // This kicks off all the fun
         pool.submit(runnable).get();
     }
 }
