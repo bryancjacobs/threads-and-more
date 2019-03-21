@@ -24,7 +24,8 @@ public class CompletableFutureExample {
 
         /**
          * This ForkJoinPool is created so that the parallelStream call happens with this pool, rather than the default
-         * pool.  This ensures that enough threads will be available to service the suppliers that will be submitted.
+         * pool.  The default thread pool is used for the entire application which can lead to performance issues.
+         * The separate pool ensures sufficient threads to service the suppliers that will be submitted.
          */
         ForkJoinPool pool = new ForkJoinPool(cores);
 
@@ -34,14 +35,19 @@ public class CompletableFutureExample {
 
 
         /**
-         * Important things to realize about this code.
+         * Important things to realize about this code:
          *
-         * First, parallelStream() is what allows the all the different suppliers to run in parallel.  You can this
-         * test by changing suppliers.parallelStream() to suppliers.stream() and you will see that the suppliers execute
+         * First, parallelStream() is what allows the all the different suppliers to run in parallel.  You can test
+         * this by changing suppliers.parallelStream() to suppliers.stream() and you will see that the suppliers execute
          * in the order they are added to the List, rather than allowing shorter running suppliers to return as they
          * complete.
          *
-         * Second, the supplyAsync call is used so that a value can be returned from the thread.
+         * What is happening under the covers with parallelStream() is that multiple threads are processing the
+         * iterations so that the CompletableFuture(s) can happen concurrently.  Without the parallelStream() you get
+         * blocked processing each thread on each iteration.
+         *
+         * Second, the supplyAsync call is used so that a value can be returned from the thread.  In this case its the
+         * string value that is being returned.
          */
         Runnable runnable = () -> suppliers.parallelStream().forEach(supplier -> {
             try {
